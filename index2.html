@@ -184,10 +184,35 @@
               background: rgba(255,255,255,.15); color:#fff;
               border: none; width: 40px; height: 40px;
               border-radius: 50%; font-size: 22px; cursor: pointer; }
+
+  /* === 보기 모드 전환 버튼 === */
+  .view-switch {
+    max-width: 1400px; margin: 0 auto 16px;
+    display: inline-flex; gap: 4px;
+    background: rgba(255,255,255,.05);
+    padding: 4px; border-radius: 10px;
+    border: 1px solid rgba(255,255,255,.08);
+  }
+  .view-switch a {
+    padding: 8px 18px; font-size: 13px; font-weight: 600;
+    color: #94a3b8; text-decoration: none;
+    border-radius: 7px;
+    transition: all .15s;
+    letter-spacing: .2px;
+  }
+  .view-switch a:hover { color: #e2e8f0; background: rgba(255,255,255,.04); }
+  .view-switch a.active {
+    background: #5b47eb; color: #fff;
+    box-shadow: 0 4px 12px rgba(91,71,235,.25);
+  }
 </style>
 </head>
 <body>
 
+<div class="view-switch">
+  <a href="index.html">📍 사업장기준 보기</a>
+  <a href="index2.html" class="active">🏢 업종기준 보기</a>
+</div>
 <header>
   <h1>SAFEG 감소대책 RAG 이미지 라이브러리 v2 — 업종구분</h1>
   <div class="sub">
