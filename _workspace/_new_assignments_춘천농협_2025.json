@@ -1,0 +1,62 @@
+[
+  {
+    "pair_id": "PAIR-0371",
+    "slot": "measure",
+    "file": "춘천농협_2025/SAFEG-CNH-2025-0051.jpg",
+    "size_kb": 29
+  },
+  {
+    "pair_id": "PAIR-0373",
+    "slot": "measure",
+    "file": "춘천농협_2025/SAFEG-CNH-2025-0052.jpg",
+    "size_kb": 15
+  },
+  {
+    "pair_id": "PAIR-0374",
+    "slot": "hazard",
+    "file": "춘천농협_2025/SAFEG-CNH-2025-0053.jpg",
+    "size_kb": 35
+  },
+  {
+    "pair_id": "PAIR-0375",
+    "slot": "hazard",
+    "file": "춘천농협_2025/SAFEG-CNH-2025-0054.jpg",
+    "size_kb": 19
+  },
+  {
+    "pair_id": "PAIR-0376",
+    "slot": "measure",
+    "file": "춘천농협_2025/SAFEG-CNH-2025-0055.jpg",
+    "size_kb": 31
+  },
+  {
+    "pair_id": "PAIR-0380",
+    "slot": "measure",
+    "file": "춘천농협_2025/SAFEG-CNH-2025-0056.jpg",
+    "size_kb": 46
+  },
+  {
+    "pair_id": "PAIR-0386",
+    "slot": "measure",
+    "file": "춘천농협_2025/SAFEG-CNH-2025-0057.jpg",
+    "size_kb": 29
+  },
+  {
+    "pair_id": "PAIR-0388",
+    "slot": "measure",
+    "file": "춘천농협_2025/SAFEG-CNH-2025-0058.jpg",
+    "size_kb": 11
+  },
+  {
+    "pair_id": "PAIR-0390",
+    "slot": "measure",
+    "file": "춘천농협_2025/SAFEG-CNH-2025-0059.jpg",
+    "size_kb": 39
+  },
+  {
+    "pair_id": "PAIR-0391",
+    "slot": "hazard",
+    "file": "춘천농협_2025/SAFEG-CNH-2025-0060.jpg",
+    "size_kb": 25
+  }
+]

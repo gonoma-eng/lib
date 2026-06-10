@@ -1,0 +1,22 @@
+[
+  {
+    "pair_id": "PAIR-0176",
+    "hazard": "",
+    "basis": "",
+    "measure": "",
+    "risk_class": "",
+    "risk_subclass": "",
+    "admin_no": "",
+    "task_name": ""
+  },
+  {
+    "pair_id": "PAIR-0177",
+    "hazard": "커플링 회전에 의한 말림 위험",
+    "basis": "안전보건규칙 제87조(원동기ㆍ회전축 등의 위험 방지)",
+    "measure": "커플링 덮개 설치 ü 덮개 임의해체 금지 ü 정비 등 덮개의 해체사유 발생 시에는 사업주의 허가를 얻어 작업하고, 해체사 유 소멸시에는 즉시 원상복구 할 것",
+    "risk_class": "기계(설비)적 요인",
+    "risk_subclass": "협착위험 부분(감김, 끼임)",
+    "admin_no": "학교관리-1",
+    "task_name": "시설관리"
+  }
+]

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 960">
+  <defs>
+    <filter id="shadow_llm"><feGaussianBlur in="SourceAlpha" stdDeviation="8"/><feOffset dx="0" dy="8"/><feComponentTransfer><feFuncA type="linear" slope="0.5"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1280" height="960" fill="#f1f5f9"/>
+  
+  
+        <!-- 건설현장 사진 풍 -->
+        <defs>
+          <linearGradient id="sky_PAIR-0010" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#fef3c7"/><stop offset="100%" stop-color="#fbbf24"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="120" width="1280" height="540" fill="url(#sky_PAIR-0010)"/>
+        <rect x="0" y="660" width="1280" height="300" fill="#78716c"/>
+        <!-- 안전조끼 -->
+        <g transform="translate(640, 480)">
+          <ellipse cx="0" cy="100" rx="80" ry="14" fill="#000" opacity="0.4"/>
+          <path d="M-90,-50 L90,-50 L100,80 L-100,80 Z" fill="#fef08a" stroke="#a16207" stroke-width="3"/>
+          <rect x="-90" y="-20" width="180" height="14" fill="#7c2d12"/>
+          <rect x="-90" y="35" width="180" height="14" fill="#7c2d12"/>
+          <ellipse cx="0" cy="-90" rx="35" ry="38" fill="#fde68a"/>
+          <path d="M-38,-90 Q0,-130 38,-90 L38,-78 L-38,-78 Z" fill="#fbbf24" stroke="#92400e" stroke-width="4"/>
+          <ellipse cx="0" cy="-110" rx="40" ry="10" fill="#f59e0b"/>
+        </g>
+  
+  <!-- 상단 라벨 (여백 최소화) -->
+  <g transform="translate(640, 55)">
+    <rect x="-200" y="-26" width="400" height="52" rx="26" fill="white" stroke="#0ea5e9" stroke-width="3" filter="url(#shadow_llm)"/>
+    <text x="0" y="7" text-anchor="middle" font-size="22" font-weight="700" fill="#0ea5e9" style="font-family:&apos;Pretendard&apos;,sans-serif">🤖 LLM 추천: 2인 1조 작업 + 신호수</text>
+  </g>
+  
+  <!-- LLM 마크 (코너) -->
+  <g transform="translate(20, 20)">
+    <rect x="0" y="0" width="100" height="28" rx="14" fill="#0ea5e9"/>
+    <text x="50" y="20" text-anchor="middle" font-size="12" font-weight="700" fill="white" letter-spacing="1.5" style="font-family:sans-serif">LLM ✦ SAFEG</text>
+  </g>
+  
+  <!-- 키워드 캡션 (하단) -->
+  <g transform="translate(640, 920)">
+    <rect x="-300" y="-22" width="600" height="40" rx="20" fill="rgba(0,0,0,0.6)"/>
+    <text x="0" y="6" text-anchor="middle" font-size="14" font-weight="600" fill="white" style="font-family:sans-serif">🔍 검색 키워드: 2-person crew + flagger</text>
+  </g>
+</svg>
