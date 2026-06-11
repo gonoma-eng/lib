@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 960">
+  <defs>
+    <filter id="shadow_llm"><feGaussianBlur in="SourceAlpha" stdDeviation="8"/><feOffset dx="0" dy="8"/><feComponentTransfer><feFuncA type="linear" slope="0.5"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1280" height="960" fill="#f1f5f9"/>
+  
+  
+        <defs>
+          <linearGradient id="lab_PAIR-0013" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#e0f2fe"/><stop offset="100%" stop-color="#bae6fd"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="120" width="1280" height="540" fill="url(#lab_PAIR-0013)"/>
+        <rect x="0" y="660" width="1280" height="300" fill="#94a3b8"/>
+        <!-- 큰 MSDS 보드 -->
+        <g transform="translate(640, 470)" filter="url(#shadow_llm)">
+          <rect x="-200" y="-180" width="400" height="380" rx="14" fill="white" stroke="#0f172a" stroke-width="6"/>
+          <rect x="-200" y="-180" width="400" height="80" rx="14" fill="#3b82f6"/>
+          <text x="0" y="-145" text-anchor="middle" font-size="44" font-weight="900" fill="white" style="font-family:sans-serif">MSDS</text>
+          <text x="0" y="-115" text-anchor="middle" font-size="14" font-weight="700" fill="white" letter-spacing="4" style="font-family:sans-serif">SAFETY DATA SHEET</text>
+          <!-- 텍스트 라인 -->
+          <g stroke="#cbd5e1" stroke-width="3" fill="none">
+            <line x1="-170" y1="-60" x2="170" y2="-60"/>
+            <line x1="-170" y1="-30" x2="120" y2="-30"/>
+            <line x1="-170" y1="0" x2="160" y2="0"/>
+            <line x1="-170" y1="30" x2="100" y2="30"/>
+            <rect x="-170" y="55" width="340" height="30" fill="#fef3c7" stroke="none"/>
+            <line x1="-170" y1="100" x2="170" y2="100"/>
+            <line x1="-170" y1="130" x2="140" y2="130"/>
+            <rect x="-170" y="155" width="340" height="30" fill="#fee2e2" stroke="none"/>
+          </g>
+          <!-- GHS 픽토 -->
+          <g transform="translate(120, 160)">
+            <path d="M0,-30 L30,0 L0,30 L-30,0 Z" fill="white" stroke="#dc2626" stroke-width="4"/>
+            <path d="M0,-15 Q-8,-5 -6,5 Q-10,10 -5,18 Q-2,10 0,15 Q3,10 6,18 Q11,10 6,5 Q8,-5 0,-15" fill="#dc2626"/>
+          </g>
+        </g>
+  
+  <!-- 상단 라벨 (여백 최소화) -->
+  <g transform="translate(640, 55)">
+    <rect x="-200" y="-26" width="400" height="52" rx="26" fill="white" stroke="#0ea5e9" stroke-width="3" filter="url(#shadow_llm)"/>
+    <text x="0" y="7" text-anchor="middle" font-size="22" font-weight="700" fill="#0ea5e9" style="font-family:&apos;Pretendard&apos;,sans-serif">🤖 LLM 추천: MSDS + 특별교육</text>
+  </g>
+  
+  <!-- LLM 마크 (코너) -->
+  <g transform="translate(20, 20)">
+    <rect x="0" y="0" width="100" height="28" rx="14" fill="#0ea5e9"/>
+    <text x="50" y="20" text-anchor="middle" font-size="12" font-weight="700" fill="white" letter-spacing="1.5" style="font-family:sans-serif">LLM ✦ SAFEG</text>
+  </g>
+  
+  <!-- 키워드 캡션 (하단) -->
+  <g transform="translate(640, 920)">
+    <rect x="-300" y="-22" width="600" height="40" rx="20" fill="rgba(0,0,0,0.6)"/>
+    <text x="0" y="6" text-anchor="middle" font-size="14" font-weight="600" fill="white" style="font-family:sans-serif">🔍 검색 키워드: SDS sheet chemical safety</text>
+  </g>
+</svg>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 960">
+  <defs>
+    <filter id="shadow_llm"><feGaussianBlur in="SourceAlpha" stdDeviation="8"/><feOffset dx="0" dy="8"/><feComponentTransfer><feFuncA type="linear" slope="0.5"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1280" height="960" fill="#f1f5f9"/>
+  
+  
+        <defs>
+          <pattern id="tile_PAIR-0018" width="80" height="80" patternUnits="userSpaceOnUse">
+            <rect width="80" height="80" fill="#e2e8f0"/>
+            <line x1="0" y1="0" x2="80" y2="0" stroke="#cbd5e1" stroke-width="2"/>
+            <line x1="0" y1="0" x2="0" y2="80" stroke="#cbd5e1" stroke-width="2"/>
+          </pattern>
+        </defs>
+        <rect x="0" y="120" width="1280" height="840" fill="url(#tile_PAIR-0018)"/>
+        <!-- 큰 안전 표지판 (스튜디오 사진풍) -->
+        <g transform="translate(640, 540)" filter="url(#shadow_llm)">
+          <rect x="-10" y="200" width="20" height="180" fill="#1e293b"/>
+          <ellipse cx="0" cy="385" rx="80" ry="14" fill="#1e293b"/>
+          <path d="M0,-180 L200,180 L-200,180 Z" fill="#fbbf24" stroke="#7c2d12" stroke-width="10" stroke-linejoin="round"/>
+          <g transform="translate(0, 60)" fill="#1e293b">
+            <circle cx="0" cy="-50" r="22"/>
+            <path d="M-50,-25 Q-60,5 -25,15 L25,15 L40,30 L0,30 L-40,15 Z"/>
+            <path d="M15,5 L50,30 L70,55 L60,60 L40,40 L0,15 Z"/>
+            <line x1="-65" y1="55" x2="65" y2="55" stroke="#1e293b" stroke-width="8"/>
+          </g>
+          <text x="0" y="135" text-anchor="middle" font-size="32" font-weight="900" fill="#1e293b" style="font-family:sans-serif">WET FLOOR</text>
+        </g>
+  
+  <!-- 상단 라벨 (여백 최소화) -->
+  <g transform="translate(640, 55)">
+    <rect x="-200" y="-26" width="400" height="52" rx="26" fill="white" stroke="#0ea5e9" stroke-width="3" filter="url(#shadow_llm)"/>
+    <text x="0" y="7" text-anchor="middle" font-size="22" font-weight="700" fill="#0ea5e9" style="font-family:&apos;Pretendard&apos;,sans-serif">🤖 LLM 추천: 개구부 덮개 + 표지</text>
+  </g>
+  
+  <!-- LLM 마크 (코너) -->
+  <g transform="translate(20, 20)">
+    <rect x="0" y="0" width="100" height="28" rx="14" fill="#0ea5e9"/>
+    <text x="50" y="20" text-anchor="middle" font-size="12" font-weight="700" fill="white" letter-spacing="1.5" style="font-family:sans-serif">LLM ✦ SAFEG</text>
+  </g>
+  
+  <!-- 키워드 캡션 (하단) -->
+  <g transform="translate(640, 920)">
+    <rect x="-300" y="-22" width="600" height="40" rx="20" fill="rgba(0,0,0,0.6)"/>
+    <text x="0" y="6" text-anchor="middle" font-size="14" font-weight="600" fill="white" style="font-family:sans-serif">🔍 검색 키워드: floor hole cover safety</text>
+  </g>
+</svg>

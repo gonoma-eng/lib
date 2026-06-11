@@ -1,0 +1,92 @@
+[
+  {
+    "pair_id": "PAIR-0213",
+    "slot": "hazard",
+    "file": "알앤투_2022/SAFEG-RT-2022-0031.jpg",
+    "size_kb": 31
+  },
+  {
+    "pair_id": "PAIR-0214",
+    "slot": "measure",
+    "file": "알앤투_2022/SAFEG-RT-2022-0032.jpg",
+    "size_kb": 17
+  },
+  {
+    "pair_id": "PAIR-0215",
+    "slot": "measure",
+    "file": "알앤투_2022/SAFEG-RT-2022-0033.jpg",
+    "size_kb": 43
+  },
+  {
+    "pair_id": "PAIR-0216",
+    "slot": "measure",
+    "file": "알앤투_2022/SAFEG-RT-2022-0034.jpg",
+    "size_kb": 43
+  },
+  {
+    "pair_id": "PAIR-0217",
+    "slot": "hazard",
+    "file": "알앤투_2022/SAFEG-RT-2022-0035.jpg",
+    "size_kb": 37
+  },
+  {
+    "pair_id": "PAIR-0218",
+    "slot": "measure",
+    "file": "알앤투_2022/SAFEG-RT-2022-0036.jpg",
+    "size_kb": 18
+  },
+  {
+    "pair_id": "PAIR-0222",
+    "slot": "measure",
+    "file": "알앤투_2022/SAFEG-RT-2022-0037.jpg",
+    "size_kb": 46
+  },
+  {
+    "pair_id": "PAIR-0224",
+    "slot": "hazard",
+    "file": "알앤투_2022/SAFEG-RT-2022-0038.jpg",
+    "size_kb": 62
+  },
+  {
+    "pair_id": "PAIR-0225",
+    "slot": "measure",
+    "file": "알앤투_2022/SAFEG-RT-2022-0039.jpg",
+    "size_kb": 38
+  },
+  {
+    "pair_id": "PAIR-0226",
+    "slot": "measure",
+    "file": "알앤투_2022/SAFEG-RT-2022-0040.jpg",
+    "size_kb": 26
+  },
+  {
+    "pair_id": "PAIR-0227",
+    "slot": "measure",
+    "file": "알앤투_2022/SAFEG-RT-2022-0041.jpg",
+    "size_kb": 27
+  },
+  {
+    "pair_id": "PAIR-0228",
+    "slot": "measure",
+    "file": "알앤투_2022/SAFEG-RT-2022-0042.jpg",
+    "size_kb": 13
+  },
+  {
+    "pair_id": "PAIR-0230",
+    "slot": "measure",
+    "file": "알앤투_2022/SAFEG-RT-2022-0043.jpg",
+    "size_kb": 26
+  },
+  {
+    "pair_id": "PAIR-0233",
+    "slot": "measure",
+    "file": "알앤투_2022/SAFEG-RT-2022-0044.jpg",
+    "size_kb": 20
+  },
+  {
+    "pair_id": "PAIR-0236",
+    "slot": "hazard",
+    "file": "알앤투_2022/SAFEG-RT-2022-0045.jpg",
+    "size_kb": 52
+  }
+]

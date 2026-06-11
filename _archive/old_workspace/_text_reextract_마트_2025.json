@@ -1,0 +1,12 @@
+[
+  {
+    "pair_id": "PAIR-0180",
+    "hazard": "창고 2층 조명이 어두워 부딪힘, 넘어짐 위험",
+    "basis": "안전보건규칙 제8조 [조도]",
+    "measure": "조명기구 교체 및 추가",
+    "risk_class": "작업환경 요인",
+    "risk_subclass": "조명",
+    "admin_no": "적재/정리-1",
+    "task_name": "적재/정리"
+  }
+]

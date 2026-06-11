@@ -1,0 +1,50 @@
+[
+  {
+    "pair_id": "PAIR-0354",
+    "slot": "hazard",
+    "file": "춘천교도소_2025/SAFEG-CC-2025-1037.jpg",
+    "size_kb": 42
+  },
+  {
+    "pair_id": "PAIR-0359",
+    "slot": "hazard",
+    "file": "춘천교도소_2025/SAFEG-CC-2025-1038.jpg",
+    "size_kb": 28
+  },
+  {
+    "pair_id": "PAIR-0361",
+    "slot": "hazard",
+    "file": "춘천교도소_2025/SAFEG-CC-2025-1039.jpg",
+    "size_kb": 37
+  },
+  {
+    "pair_id": "PAIR-0362",
+    "slot": "measure",
+    "file": "춘천교도소_2025/SAFEG-CC-2025-1040.jpg",
+    "size_kb": 33
+  },
+  {
+    "pair_id": "PAIR-0363",
+    "slot": "measure",
+    "file": "춘천교도소_2025/SAFEG-CC-2025-1041.jpg",
+    "size_kb": 14
+  },
+  {
+    "pair_id": "PAIR-0364",
+    "slot": "hazard",
+    "file": "춘천교도소_2025/SAFEG-CC-2025-1042.jpg",
+    "size_kb": 30
+  },
+  {
+    "pair_id": "PAIR-0366",
+    "slot": "hazard",
+    "file": "춘천교도소_2025/SAFEG-CC-2025-1043.jpg",
+    "size_kb": 36
+  },
+  {
+    "pair_id": "PAIR-0368",
+    "slot": "hazard",
+    "file": "춘천교도소_2025/SAFEG-CC-2025-1044.jpg",
+    "size_kb": 39
+  }
+]

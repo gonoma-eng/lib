@@ -1,0 +1,80 @@
+[
+  {
+    "pair_id": "PAIR-0266",
+    "slot": "hazard",
+    "file": "알펜시아_2021/SAFEG-ALP-2021-0081.jpg",
+    "size_kb": 39
+  },
+  {
+    "pair_id": "PAIR-0267",
+    "slot": "measure",
+    "file": "알펜시아_2021/SAFEG-ALP-2021-0082.jpg",
+    "size_kb": 18
+  },
+  {
+    "pair_id": "PAIR-0270",
+    "slot": "measure",
+    "file": "알펜시아_2021/SAFEG-ALP-2021-0083.jpg",
+    "size_kb": 26
+  },
+  {
+    "pair_id": "PAIR-0273",
+    "slot": "measure",
+    "file": "알펜시아_2021/SAFEG-ALP-2021-0084.jpg",
+    "size_kb": 15
+  },
+  {
+    "pair_id": "PAIR-0275",
+    "slot": "measure",
+    "file": "알펜시아_2021/SAFEG-ALP-2021-0085.jpg",
+    "size_kb": 14
+  },
+  {
+    "pair_id": "PAIR-0282",
+    "slot": "measure",
+    "file": "알펜시아_2021/SAFEG-ALP-2021-0086.jpg",
+    "size_kb": 33
+  },
+  {
+    "pair_id": "PAIR-0287",
+    "slot": "measure",
+    "file": "알펜시아_2021/SAFEG-ALP-2021-0087.jpg",
+    "size_kb": 12
+  },
+  {
+    "pair_id": "PAIR-0289",
+    "slot": "measure",
+    "file": "알펜시아_2021/SAFEG-ALP-2021-0088.jpg",
+    "size_kb": 24
+  },
+  {
+    "pair_id": "PAIR-0290",
+    "slot": "measure",
+    "file": "알펜시아_2021/SAFEG-ALP-2021-0089.jpg",
+    "size_kb": 29
+  },
+  {
+    "pair_id": "PAIR-0292",
+    "slot": "measure",
+    "file": "알펜시아_2021/SAFEG-ALP-2021-0090.jpg",
+    "size_kb": 41
+  },
+  {
+    "pair_id": "PAIR-0295",
+    "slot": "measure",
+    "file": "알펜시아_2021/SAFEG-ALP-2021-0091.jpg",
+    "size_kb": 44
+  },
+  {
+    "pair_id": "PAIR-0301",
+    "slot": "measure",
+    "file": "알펜시아_2021/SAFEG-ALP-2021-0092.jpg",
+    "size_kb": 16
+  },
+  {
+    "pair_id": "PAIR-0307",
+    "slot": "measure",
+    "file": "알펜시아_2021/SAFEG-ALP-2021-0093.jpg",
+    "size_kb": 50
+  }
+]

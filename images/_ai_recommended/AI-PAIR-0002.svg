@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 960" width="1280" height="960">
+
+  <defs>
+    <linearGradient id="bgSoft" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f0fdf4"/><stop offset="100%" stop-color="#dcfce7"/>
+    </linearGradient>
+    <linearGradient id="vestGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fb923c"/><stop offset="100%" stop-color="#c2410c"/>
+    </linearGradient>
+    <linearGradient id="helmetYellow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fde047"/><stop offset="100%" stop-color="#a16207"/>
+    </linearGradient>
+    <radialGradient id="skinGrad" cx="0.4" cy="0.4" r="0.7">
+      <stop offset="0%" stop-color="#fed7aa"/><stop offset="100%" stop-color="#f59e0b"/>
+    </radialGradient>
+    <linearGradient id="redDanger" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fee2e2"/><stop offset="100%" stop-color="#fecaca"/>
+    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="4"/>
+      <feOffset dx="0" dy="4"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.25"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="arrowR" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto">
+      <path d="M0,0 L12,7 L0,14 Z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+
+  <rect width="1280" height="960" fill="#fefce8"/>
+  <rect x="0" y="700" width="1280" height="260" fill="#a8a29e"/>
+  
+  <!-- 휘발유 소분용기 (좌측) -->
+  <g transform="translate(180, 420)" filter="url(#softShadow)">
+    <ellipse cx="100" cy="320" rx="110" ry="14" fill="#000" opacity="0.25"/>
+    <!-- 통 본체 -->
+    <rect x="30" y="80" width="140" height="240" rx="8" fill="#dc2626" stroke="#7f1d1d" stroke-width="3"/>
+    <ellipse cx="100" cy="80" rx="70" ry="14" fill="#ef4444" stroke="#7f1d1d" stroke-width="3"/>
+    <ellipse cx="100" cy="74" rx="68" ry="12" fill="#fca5a5"/>
+    <!-- 손잡이 -->
+    <rect x="80" y="50" width="40" height="30" rx="6" fill="#7f1d1d"/>
+    <!-- 경고표지 라벨 (붙어 있음) -->
+    <rect x="40" y="130" width="120" height="160" fill="white" stroke="#dc2626" stroke-width="4"/>
+    <!-- GHS 다이아 (인화성 - 불꽃) -->
+    <path d="M100,145 L155,200 L100,255 L45,200 Z" fill="white" stroke="#dc2626" stroke-width="3"/>
+    <g transform="translate(100, 200)">
+      <path d="M0,-25 Q-10,-10 -8,5 Q-15,10 -10,22 Q-5,8 0,18 Q5,8 10,22 Q15,10 8,5 Q10,-10 0,-25" fill="#dc2626"/>
+    </g>
+    <text x="100" y="278" text-anchor="middle" font-size="14" font-weight="900" fill="#dc2626" style="font-family:sans-serif">⚠ 인화성</text>
+  </g>
+  
+  <!-- 경고 라벨 (우측, 클로즈업) -->
+  <g transform="translate(640, 280)" filter="url(#softShadow)">
+    <rect x="0" y="0" width="480" height="440" rx="14" fill="white" stroke="#0f172a" stroke-width="5"/>
+    <rect x="0" y="0" width="480" height="80" rx="14" fill="#dc2626"/>
+    <text x="240" y="40" text-anchor="middle" font-size="28" font-weight="900" fill="white" style="font-family:sans-serif">⚠ DANGER · 위험</text>
+    <text x="240" y="65" text-anchor="middle" font-size="13" font-weight="600" fill="white" letter-spacing="3" style="font-family:sans-serif">FLAMMABLE LIQUID · 휘발유</text>
+    <!-- GHS 픽토그램 3개 -->
+    <g transform="translate(80, 130)">
+      <path d="M0,0 L70,70 L0,140 L-70,70 Z" fill="white" stroke="#dc2626" stroke-width="4"/>
+      <g transform="translate(0, 70)"><path d="M0,-30 Q-12,-10 -8,8 Q-18,15 -12,30 Q-6,12 0,25 Q6,12 12,30 Q18,15 8,8 Q12,-10 0,-30" fill="#dc2626"/></g>
+      <text x="0" y="170" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a" style="font-family:sans-serif">인화성</text>
+    </g>
+    <g transform="translate(240, 130)">
+      <path d="M0,0 L70,70 L0,140 L-70,70 Z" fill="white" stroke="#dc2626" stroke-width="4"/>
+      <g transform="translate(0, 70)" stroke="#dc2626" stroke-width="3" fill="none">
+        <circle cx="0" cy="-8" r="14"/>
+        <line x1="-25" y1="20" x2="25" y2="20"/>
+        <path d="M-12,-5 Q0,8 12,-5"/>
+      </g>
+      <text x="0" y="170" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a" style="font-family:sans-serif">건강유해성</text>
+    </g>
+    <g transform="translate(400, 130)">
+      <path d="M0,0 L70,70 L0,140 L-70,70 Z" fill="white" stroke="#dc2626" stroke-width="4"/>
+      <text x="0" y="80" text-anchor="middle" font-size="36" font-weight="900" fill="#dc2626" style="font-family:sans-serif">!</text>
+      <text x="0" y="170" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a" style="font-family:sans-serif">자극성</text>
+    </g>
+    <!-- 정보 -->
+    <g transform="translate(40, 310)" font-family="sans-serif">
+      <rect x="0" y="0" width="400" height="25" fill="#fef3c7"/>
+      <text x="10" y="17" font-size="13" font-weight="800" fill="#92400e">신호어: 위험</text>
+      <rect x="0" y="35" width="400" height="25" fill="#fef3c7"/>
+      <text x="10" y="52" font-size="13" font-weight="800" fill="#92400e">유해문구: H225 매우 인화성 액체</text>
+      <rect x="0" y="70" width="400" height="25" fill="#fef3c7"/>
+      <text x="10" y="87" font-size="13" font-weight="800" fill="#92400e">예방조치: P210 불꽃·열 금지</text>
+    </g>
+  </g>
+  
+  <!-- 라벨: 경고표지 부착 -->
+  <g transform="translate(280, 200)" filter="url(#softShadow)">
+    <rect x="-110" y="-32" width="220" height="64" rx="10" fill="#fde047" stroke="#1e293b" stroke-width="3"/>
+    <text x="0" y="-5" text-anchor="middle" font-size="20" font-weight="900" fill="#1e293b" style="font-family:&apos;Pretendard&apos;,sans-serif">유해·위험성</text>
+    <text x="0" y="22" text-anchor="middle" font-size="20" font-weight="900" fill="#1e293b" style="font-family:&apos;Pretendard&apos;,sans-serif">경고표지 부착</text>
+    <path d="M0,35 L20,240" stroke="#dc2626" stroke-width="4" fill="none" marker-end="url(#arrowR)"/>
+  </g>
+
+  <!-- 상단 라벨 -->
+  <g transform="translate(640, 55)">
+    <rect x="-260" y="-26" width="520" height="52" rx="26" fill="white" stroke="#5b47eb" stroke-width="3" filter="url(#softShadow)"/>
+    <text x="0" y="7" text-anchor="middle" font-size="20" font-weight="700" fill="#5b47eb" style="font-family:&apos;Pretendard&apos;,sans-serif">✦ 휘발유 소분용기에 유해·위험성 경고 표지 부착</text>
+  </g>
+  <!-- 코너 마크 -->
+  <g transform="translate(20, 20)">
+    <rect x="0" y="0" width="90" height="28" rx="14" fill="#5b47eb"/>
+    <text x="45" y="20" text-anchor="middle" font-size="12" font-weight="700" fill="white" letter-spacing="1.5" style="font-family:sans-serif">AI ✦ SAFEG</text>
+  </g>
+  <!-- 푸터 (회사·페어 ID) -->
+  <g transform="translate(640, 920)">
+    <text x="0" y="0" text-anchor="middle" font-size="12" font-weight="600" fill="#94a3b8" style="font-family:sans-serif">SAFEG-Lexia · PAIR-0002 · 강릉농협 2025</text>
+  </g>
+</svg>
