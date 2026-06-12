@@ -194,6 +194,15 @@
   }
   .lightbox .lb-col {
     display: flex; flex-direction: column; align-items: stretch;
+    gap: 10px;
+  }
+  /* 라벨 + 탭을 같은 행에 배치 — 1단/2단 헤더 높이 통일 */
+  .lightbox .lb-col-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    min-height: 32px;
   }
   .lightbox .lb-label {
     display: inline-flex; align-items: center; gap: 6px;
@@ -201,28 +210,28 @@
     color: #e2e8f0;
     padding: 5px 12px; border-radius: 999px;
     font-size: 11px; font-weight: 600; letter-spacing: .3px;
-    margin-bottom: 10px;
     border: 1px solid rgba(255,255,255,.12);
-    align-self: flex-start;
+    align-self: center;
   }
   .lightbox .lb-label .dot { width:6px; height:6px; border-radius:50%; display:inline-block; }
   .lightbox .lb-label.hazard { border-color: rgba(245,158,11,.4); }
   .lightbox .lb-label.measure { border-color: rgba(91,71,235,.4); }
   .lightbox .lb-img-wrap {
     position: relative; width: 100%;
+    aspect-ratio: 4 / 3;
     background: #fff; border-radius: 8px;
     box-shadow: 0 10px 30px rgba(0,0,0,.4);
     overflow: hidden;
     cursor: zoom-in;
   }
   .lightbox .lb-img-wrap img {
-    width: 100%; max-height: 60vh; object-fit: contain;
+    width: 100%; height: 100%; object-fit: contain;
     display: block;
     transition: transform .2s;
   }
   .lightbox .lb-img-wrap:hover img { transform: scale(1.02); }
   .lightbox .lb-img-empty {
-    width: 100%; height: 280px;
+    width: 100%; aspect-ratio: 4 / 3;
     background: rgba(255,255,255,.04);
     color: #94a3b8; font-size: 12px;
     display: flex; align-items: center; justify-content: center;
@@ -281,10 +290,9 @@
     background: rgba(255,255,255,.08);
     padding: 3px;
     border-radius: 999px;
-    margin-top: 10px;
-    margin-bottom: 6px;
     border: 1px solid rgba(255,255,255,.12);
-    align-self: flex-start;
+    align-self: center;
+    flex-shrink: 0;
   }
   .lightbox .lb-tab {
     padding: 5px 14px;
@@ -320,7 +328,7 @@
     background: rgba(255,255,255,.04);
     cursor: pointer;
     transition: all .15s;
-    min-height: 280px;
+    aspect-ratio: 4 / 3;
     text-align: center;
   }
   .lightbox .ai-upload-zone:hover {
@@ -513,15 +521,17 @@
     padding-bottom: 8px; margin-bottom: 8px;
     border-bottom: 1px solid #e2e8f0;
   }
-  /* 컬럼 헤더 정렬 통일 */
+  /* 컬럼 헤더/이미지/버튼 정렬 통일 */
   .lightbox .lb-col { min-height: 1px; }
-  .lightbox .lb-label { 
-    height: 28px; box-sizing: border-box;
-    align-self: stretch;
-    justify-content: flex-start;
-  }
-  .lightbox .lb-img-wrap, .lightbox .lb-img-empty, .lightbox .lb-detail {
+  .lightbox .lb-img-wrap,
+  .lightbox .lb-img-empty,
+  .lightbox .ai-upload-zone,
+  .lightbox .lb-detail {
     flex: 0 0 auto;
+  }
+  .lightbox .lb-dl {
+    margin-top: 0;
+    align-self: stretch;
   }
 
   .lb-close { position: fixed; top: 20px; right: 30px;
@@ -1079,41 +1089,15 @@ window.safegFsSelectFolder = fsSelectFolder;
 
   // === AI 추천 — 자동 압축 (목표 용량 보장) ===
 
-// WebP 지원 여부 (1회 캐시)
-let _webpSupported = null;
-function supportsWebP() {
-  if (_webpSupported !== null) return _webpSupported;
-  try {
-    const c = document.createElement('canvas');
-    c.width = c.height = 1;
-    _webpSupported = c.toDataURL('image/webp').startsWith('data:image/webp');
-  } catch(e) { _webpSupported = false; }
-  return _webpSupported;
-}
-
-// canvas → 목표 KB 이하로 압축 (quality 단계별 조절)
-function compressCanvasToTarget(canvas, targetKB = 150, format = 'image/jpeg') {
-  const qualities = [0.9, 0.82, 0.75, 0.68, 0.60, 0.52, 0.45, 0.38, 0.30];
-  let best = null;
-  for (const q of qualities) {
-    const url = canvas.toDataURL(format, q);
-    const kb = Math.round(url.length * 0.75 / 1024);  // base64 → 실 바이트 추정
-    best = { url, quality: q, kb };
-    if (kb <= targetKB) return best;
-  }
-  return best;  // 최저 quality여도 못 맞추면 그대로 반환
-}
-
-// 사이즈 단계별 축소 + quality 조절 결합 (보장형 압축)
-function compressWithResize(img, targetCacheKB = 150) {
+// PNG 사이즈 단계별 축소 — 목표 KB 이하 도달까지
+// PNG는 무손실이라 quality 옵션 없음 → 해상도만 줄여서 압축
+function compressWithResize(img, targetKB = 100) {
   const sizeSteps = [
     { w: 1280, h: 960 },
     { w: 1024, h: 768 },
     { w: 800,  h: 600 },
     { w: 640,  h: 480 },
   ];
-  // WebP 가능하면 우선 (1.5~2배 작음)
-  const format = supportsWebP() ? 'image/webp' : 'image/jpeg';
   
   let lastResult = null;
   for (const { w: maxW, h: maxH } of sizeSteps) {
@@ -1130,12 +1114,11 @@ function compressWithResize(img, targetCacheKB = 150) {
     ctx.fillRect(0, 0, w, h);
     ctx.drawImage(img, 0, 0, w, h);
     
-    const result = compressCanvasToTarget(canvas, targetCacheKB, format);
-    result.width = w;
-    result.height = h;
-    result.format = format;
-    lastResult = result;
-    if (result.kb <= targetCacheKB) return result;
+    // PNG로만 인코딩 (무손실, 사이즈로만 조절)
+    const url = canvas.toDataURL('image/png');
+    const kb = Math.round(url.length * 0.75 / 1024);
+    lastResult = { url, kb, width: w, height: h, format: 'image/png', canvas };
+    if (kb <= targetKB) return lastResult;
   }
   return lastResult;
 }
@@ -1148,95 +1131,60 @@ async function uploadAiImage(event, pairId) {
   reader.onload = e => {
     const img = new Image();
     img.onload = async () => {
-      // 1) 자동 압축 (목표 캐시 150KB 이내)
-      const TARGET_CACHE_KB = 150;
-      const compressed = compressWithResize(img, TARGET_CACHE_KB);
-      const formatName = compressed.format === 'image/webp' ? 'WebP' : 'JPEG';
-      console.log(`[upload] 원본: ${originalKB}KB → 압축(${formatName} ${Math.round(compressed.quality*100)}%): ${compressed.kb}KB (${compressed.width}×${compressed.height})`);
+      // 1) PNG 압축 (목표 100KB — 다운로드 버튼 압축률 수준)
+      const TARGET_KB = 100;
+      const compressed = compressWithResize(img, TARGET_KB);
+      console.log(`[upload] 원본: ${originalKB}KB → PNG ${compressed.kb}KB (${compressed.width}×${compressed.height})`);
       
-      // 2) 다운로드용은 원본 사이즈 그대로 PNG (고품질 보존)
-      const dlMaxW = 1280, dlMaxH = 960;
-      let dlW = img.naturalWidth, dlH = img.naturalHeight;
-      if (dlW > dlMaxW || dlH > dlMaxH) {
-        const r = Math.min(dlMaxW / dlW, dlMaxH / dlH);
-        dlW = Math.round(dlW * r); dlH = Math.round(dlH * r);
-      }
-      const dlCanvas = document.createElement('canvas');
-      dlCanvas.width = dlW; dlCanvas.height = dlH;
-      const dlCtx = dlCanvas.getContext('2d');
-      dlCtx.fillStyle = '#ffffff';
-      dlCtx.fillRect(0, 0, dlW, dlH);
-      dlCtx.drawImage(img, 0, 0, dlW, dlH);
-      const downloadUrl = dlCanvas.toDataURL('image/png');
-      const downloadKB = Math.round(downloadUrl.length * 0.75 / 1024);
-      
-      // 3) 압축본 localStorage 저장 (각 페어는 독립 키 — 자동 정리 안 함)
-      const saved = setAiCache(pairId, compressed.url);
-      
-      // 4) 파일 캐시 무효화
-      const fp = AI_FOLDER + 'AI-' + pairId + '.png';
-      delete _aiFileExistsCache[fp];
-      
-      // 5) 저장 — 프로젝트 폴더 우선, 미지원 시 다운로드 fallback
       const targetName = `AI-${pairId}.png`;
+      const fp = AI_FOLDER + targetName;
+      
+      // 2) 프로젝트 폴더 직접 저장 시도 (File System Access API)
       let savedToFolder = false;
       let savedPath = '';
       
       if (fsSupported()) {
-        // PNG → Blob 변환
-        const pngBlob = await new Promise(r => dlCanvas.toBlob(r, 'image/png'));
-        
-        // 등록된 폴더 시도
+        const pngBlob = await new Promise(r => compressed.canvas.toBlob(r, 'image/png'));
         let result = await fsSaveImage(pngBlob, targetName);
         
-        // 폴더 없으면 사용자에게 선택 요청
+        // 폴더 미등록 시 처음 한 번만 선택 요청
         if (!result.ok && result.reason === 'no_folder') {
-          const setupNow = confirm('🗂 AI 추천 폴더를 등록하시겠습니까?\n\n등록하면 이후 모든 업로드가 프로젝트 폴더에\n자동 저장됩니다 (Git에서 보존됨).\n\n[권장 폴더]\n  images/_ai_recommended/\n\n취소하면 다운로드 방식으로 처리됩니다.');
+          const setupNow = confirm('🗂 AI 추천 이미지를 프로젝트 폴더에 저장할까요?\n\n폴더에 저장하면:\n  ✅ Git 커밋 시 함께 배포됨\n  ✅ 다른 사용자에게도 표시됨\n  ✅ 브라우저 캐시 삭제와 무관하게 유지\n\n[등록할 폴더]\n  images/_ai_recommended/\n\n취소하면 다운로드 폴더에 저장됩니다.');
           if (setupNow) {
             const handle = await fsSelectFolder();
-            if (handle) {
-              result = await fsSaveImage(pngBlob, targetName);
-            }
+            if (handle) result = await fsSaveImage(pngBlob, targetName);
           }
         }
         
         if (result.ok) {
           savedToFolder = true;
           savedPath = result.path;
-          // 파일 시스템에 저장됐으므로 파일 경로 캐시 무효화 (다음 렌더 시 파일 사용)
-          const fp = AI_FOLDER + targetName;
           delete _aiFileExistsCache[fp];
         }
       }
       
-      // 폴더 저장 실패/미지원 시 다운로드 fallback
-      const ts = new Date().toISOString().slice(0,16).replace(/[-:T]/g,'');
-      const dlFilename = savedToFolder ? targetName : `AI-${pairId}-${ts}.png`;
+      // 3) localStorage 캐시 — 즉시 표시용 (PNG, 페어별 독립)
+      const saved = setAiCache(pairId, compressed.url);
+      delete _aiFileExistsCache[fp];
+      
+      // 4) 폴더 저장 실패 시 다운로드 fallback (파일명 = 즉시 적용 가능한 형태)
       if (!savedToFolder) {
-        downloadDataUrl(downloadUrl, dlFilename);
+        downloadDataUrl(compressed.url, targetName);
       }
       
-      // 6) AI 패널 갱신
+      // 5) AI 패널 + 탭 + 카드 갱신
       const im = library.find(x => x.pair_id === pairId) || { pair_id: pairId };
       const pane = document.querySelector(`.lb-img-pane[data-pid="${pairId}"]`);
       if (pane) pane.innerHTML = renderAiPane(im);
-      
-      // 7) AI 탭 전환
       const aiTab = document.querySelector('.lb-tab[data-tab="ai"]');
       if (aiTab) switchTab(aiTab, 'ai');
-      
-      // 8) 카드 썸네일 갱신
       if (typeof apply === 'function') apply();
       
-      // 9) 압축 결과 + 저장 위치 안내
-      showUploadGuide(dlFilename, pairId, saved, {
+      // 6) 결과 안내
+      showUploadGuide(targetName, pairId, saved, {
         originalKB,
         cacheKB: compressed.kb,
-        cacheFormat: formatName,
-        cacheQuality: Math.round(compressed.quality * 100),
         cacheSize: `${compressed.width}×${compressed.height}`,
-        downloadKB,
-        downloadSize: `${dlW}×${dlH}`,
         savedToFolder,
         savedPath,
       });
@@ -1319,21 +1267,21 @@ function showUploadGuide(filename, pairId, cached, stats) {
   let saveMsg = '';
   if (stats && stats.savedToFolder) {
     saveMsg = `<div class="toast-saved ok">
-      ✅ 프로젝트 폴더 자동 저장 완료<br>
+      ✅ 프로젝트 폴더에 자동 저장 완료<br>
       <code>${stats.savedPath || 'images/_ai_recommended/AI-' + pairId + '.png'}</code><br>
-      <small>Git에 커밋하면 모든 환경에 보존됩니다</small>
+      <small>Git에 커밋하면 웹서버 배포 시 함께 올라갑니다</small>
     </div>`;
   } else {
     saveMsg = `<div class="toast-saved fallback">
-      📥 다운로드 폴더에 저장됨<br>
+      📥 다운로드 폴더에 저장됨 (PNG)<br>
       <code>${filename}</code><br>
-      <small>영구 적용: <code>images/_ai_recommended/</code> 폴더로 이동 + rename</small>
+      <small>영구 적용: <code>images/_ai_recommended/</code>로 이동 (파일명 그대로)</small>
     </div>`;
   }
   
   const cacheStatus = cached
-    ? '<div class="toast-cache ok">💾 캐시 저장 OK · 즉시 표시</div>'
-    : '<div class="toast-cache warn">⚠ 캐시 용량 초과 · 폴더 저장 필수</div>';
+    ? '<div class="toast-cache ok">💾 임시 표시 캐시 OK</div>'
+    : '<div class="toast-cache warn">⚠ 캐시 미저장 — 폴더 저장 필수</div>';
   const targetName = `AI-${pairId}.png`;
   
   // 압축 통계
@@ -1345,14 +1293,10 @@ function showUploadGuide(filename, pairId, cached, stats) {
         <span class="stats-val">${stats.originalKB} KB</span>
       </div>
       <div class="stats-row primary">
-        <span class="stats-label">💾 캐시 (${stats.cacheFormat} ${stats.cacheQuality}%)</span>
+        <span class="stats-label">🖼 PNG 압축</span>
         <span class="stats-val">${stats.cacheKB} KB <em>(${stats.cacheSize})</em></span>
       </div>
-      <div class="stats-row">
-        <span class="stats-label">⬇ 다운로드 (PNG)</span>
-        <span class="stats-val">${stats.downloadKB} KB <em>(${stats.downloadSize})</em></span>
-      </div>
-      ${ratio > 0 ? `<div class="stats-saved">✨ 캐시 압축률 ${ratio}% 절감</div>` : ''}
+      ${ratio > 0 ? `<div class="stats-saved">✨ ${ratio}% 절감</div>` : ''}
     </div>
   ` : '';
   
@@ -1549,7 +1493,9 @@ function openLB(id) {
     <div class="lb-grid">
       <!-- 1단: 위험성평가 유해위험요인 사진 -->
       <div class="lb-col">
-        <div class="lb-label hazard"><span class="dot" style="background:#f59e0b"></span>위험성평가 유해위험요인 사진</div>
+        <div class="lb-col-header">
+          <div class="lb-label hazard"><span class="dot" style="background:#f59e0b"></span>위험성평가 유해위험요인 사진</div>
+        </div>
         ${im.hazard_photo
           ? `<div class="lb-img-wrap" onclick="openImageInNewWindow('${im.hazard_photo}', '${im.pair_id}')" title="클릭하여 원본 보기">
               <img src="${im.hazard_photo}" onerror="this.style.opacity=.3" />
@@ -1559,7 +1505,13 @@ function openLB(id) {
       </div>
       <!-- 2단: 감소대책 예시 사진 (2-탭: 원본 / AI 추천 — 모든 페어 적용) -->
       <div class="lb-col">
-        <div class="lb-label measure"><span class="dot" style="background:#5b47eb"></span>감소대책 예시 사진</div>
+        <div class="lb-col-header">
+          <div class="lb-label measure"><span class="dot" style="background:#5b47eb"></span>감소대책 예시 사진</div>
+          <div class="lb-tabs" role="tablist">
+            <button type="button" class="lb-tab active" data-tab="orig" onclick="switchTab(this, 'orig')">📷 원본</button>
+            <button type="button" class="lb-tab" data-tab="ai" onclick="switchTab(this, 'ai')">✦ AI 추천</button>
+          </div>
+        </div>
         <div class="lb-img-pane active" data-pane="orig">
           ${im.measure_photo
             ? `<div class="lb-img-wrap" onclick="openImageInNewWindow('${im.measure_photo}', '${im.pair_id}')" title="클릭하여 원본 보기">
@@ -1570,15 +1522,13 @@ function openLB(id) {
         <div class="lb-img-pane" data-pane="ai" data-pid="${im.pair_id}">
           ${renderAiPane(im)}
         </div>
-        <div class="lb-tabs" role="tablist">
-          <button type="button" class="lb-tab active" data-tab="orig" onclick="switchTab(this, 'orig')">📷 원본</button>
-          <button type="button" class="lb-tab" data-tab="ai" onclick="switchTab(this, 'ai')">✦ AI 추천</button>
-        </div>
         <button type="button" class="lb-dl measure lb-dl-active" data-url="${im.measure_photo || ''}" data-name="${im.pair_id}-measure.png">⬇ 사진 다운로드</button>
       </div>
       <!-- 3단: 위험성 감소대책 수립 및 실행 (상세 정보) -->
       <div class="lb-col lb-col-info">
-        <div class="lb-label info"><span class="dot" style="background:#10b981"></span>위험성 감소대책 수립 및 실행</div>
+        <div class="lb-col-header">
+          <div class="lb-label info"><span class="dot" style="background:#10b981"></span>위험성 감소대책 수립 및 실행</div>
+        </div>
         <div class="lb-detail">
           <div class="pair-id-line">${im.pair_id}</div>
           <div class="lbf"><b>페어 구성</b> ${(im.hazard_photo && im.measure_photo) ? "✅ 유해위험요인 + 감소대책" : (im.hazard_photo ? "⚠ 유해위험요인만" : "⚠ 감소대책만")}</div>
