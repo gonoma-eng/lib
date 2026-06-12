@@ -375,6 +375,64 @@
     font-family: monospace; background: rgba(0,0,0,.2);
     padding: 4px 10px; border-radius: 4px;
   }
+
+  /* AI 탭 상단 — 저장 폴더 상태 배너 */
+  .lightbox .fs-status {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 11px;
+    line-height: 1.4;
+    margin-bottom: 8px;
+    border: 1px solid;
+  }
+  .lightbox .fs-status.ok {
+    background: rgba(16,185,129,.12);
+    border-color: rgba(16,185,129,.4);
+    color: #6ee7b7;
+  }
+  .lightbox .fs-status.warn {
+    background: rgba(245,158,11,.12);
+    border-color: rgba(245,158,11,.4);
+    color: #fcd34d;
+  }
+  .lightbox .fs-status.unsupported {
+    background: rgba(148,163,184,.1);
+    border-color: rgba(148,163,184,.3);
+    color: #cbd5e1;
+  }
+  .lightbox .fs-status .fs-info {
+    display: flex; flex-direction: column; gap: 2px;
+    flex: 1; min-width: 0;
+  }
+  .lightbox .fs-status .fs-label {
+    font-weight: 700; letter-spacing: .2px;
+  }
+  .lightbox .fs-status .fs-path {
+    font-family: monospace; font-size: 10px;
+    opacity: 0.85;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .lightbox .fs-status .fs-btn {
+    padding: 5px 12px;
+    background: rgba(255,255,255,.12);
+    color: inherit;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 6px;
+    font-size: 11px; font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all .15s;
+  }
+  .lightbox .fs-status .fs-btn:hover {
+    background: rgba(255,255,255,.22);
+  }
+  .lightbox .fs-status.ok .fs-btn:hover { background: rgba(16,185,129,.35); }
+  .lightbox .fs-status.warn .fs-btn {
+    background: #f59e0b; color: #fff; border-color: #d97706;
+  }
+  .lightbox .fs-status.warn .fs-btn:hover { background: #d97706; }
   /* Toast 알림 */
   #aiUploadToast {
     position: fixed; bottom: 30px; right: 30px;
@@ -1087,6 +1145,83 @@ window.safegFsReset = async function() {
 
 window.safegFsSelectFolder = fsSelectFolder;
 
+// === 폴더 상태 캐시 + 배너 ===
+// 동기 렌더링용 캐시 — 비동기 검증 결과를 보관
+let _fsCachedStatus = { state: 'unknown', folderName: '' };
+
+async function refreshFsStatus() {
+  if (!fsSupported()) {
+    _fsCachedStatus = { state: 'unsupported', folderName: '' };
+  } else {
+    const handle = await fsGetFolderHandle();
+    _fsCachedStatus = handle
+      ? { state: 'ok', folderName: handle.name }
+      : { state: 'warn', folderName: '' };
+  }
+  // 열린 라이트박스의 AI 배너 갱신
+  document.querySelectorAll('.fs-status').forEach(el => {
+    const pid = el.dataset.pid;
+    if (pid) el.outerHTML = renderFsStatus(pid);
+  });
+  return _fsCachedStatus;
+}
+
+function renderFsStatus(pairId) {
+  const s = _fsCachedStatus;
+  if (s.state === 'unsupported') {
+    return `<div class="fs-status unsupported" data-pid="${pairId}">
+      <div class="fs-info">
+        <span class="fs-label">⚠ 자동 저장 미지원 브라우저</span>
+        <span class="fs-path">Chrome 또는 Edge 사용 권장 — 다운로드 폴더로 저장됩니다</span>
+      </div>
+    </div>`;
+  }
+  if (s.state === 'ok') {
+    return `<div class="fs-status ok" data-pid="${pairId}">
+      <div class="fs-info">
+        <span class="fs-label">✅ 저장 폴더 등록됨</span>
+        <span class="fs-path">📁 ${escapeHtml(s.folderName)} / AI-${pairId}.png</span>
+      </div>
+      <button type="button" class="fs-btn" onclick="changeAiFolder()">변경</button>
+    </div>`;
+  }
+  // warn — 미등록
+  return `<div class="fs-status warn" data-pid="${pairId}">
+    <div class="fs-info">
+      <span class="fs-label">⚠ 저장 폴더 미등록</span>
+      <span class="fs-path">등록하지 않으면 Downloads 폴더로 저장됩니다</span>
+    </div>
+    <button type="button" class="fs-btn" onclick="registerAiFolder()">📁 폴더 등록</button>
+  </div>`;
+}
+
+// 사용자가 명시적으로 폴더 등록
+window.registerAiFolder = async function() {
+  if (!fsSupported()) {
+    alert('이 브라우저는 자동 저장을 지원하지 않습니다.\nChrome 또는 Edge에서 실행해주세요.');
+    return;
+  }
+  alert(
+    '📁 AI 추천 이미지 저장 폴더를 등록합니다.\n\n' +
+    '폴더 선택 창에서 아래 경로를 찾아 선택해주세요:\n\n' +
+    '  D:\\AI\\lexia.safeg\\위험성평가 Lexia 표준 템플릿 코드 정규화\\\n' +
+    '    SAFEG-lexia\\rag_data\\image_library_v2\\images\\_ai_recommended\n\n' +
+    '한 번 등록하면 다음부터는 자동으로 그 폴더에 저장됩니다.'
+  );
+  const handle = await fsSelectFolder();
+  if (handle) {
+    await refreshFsStatus();
+    alert(`✅ 폴더 등록 완료\n\n선택한 폴더: "${handle.name}"\n\n이제 AI 추천 이미지를 업로드하면 자동으로 이 폴더에 저장됩니다.`);
+  }
+};
+
+window.changeAiFolder = async function() {
+  if (!confirm('저장 폴더를 변경하시겠습니까?\n\n변경 시 새 폴더를 선택하는 창이 열립니다.')) return;
+  await fsClearHandle();
+  _aiFolderHandle = null;
+  await registerAiFolder();
+};
+
   // === AI 추천 — 자동 압축 (목표 용량 보장) ===
 
 // PNG 사이즈 단계별 축소 — 목표 KB 이하 도달까지
@@ -1146,16 +1281,25 @@ async function uploadAiImage(event, pairId) {
       if (fsSupported()) {
         const pngBlob = await new Promise(r => compressed.canvas.toBlob(r, 'image/png'));
         let result = await fsSaveImage(pngBlob, targetName);
-        
-        // 폴더 미등록 시 처음 한 번만 선택 요청
+
+        // 폴더 미등록 시 — confirm 대신 alert 안내 후 폴더 선택 다이얼로그를 직접 호출
         if (!result.ok && result.reason === 'no_folder') {
-          const setupNow = confirm('🗂 AI 추천 이미지를 프로젝트 폴더에 저장할까요?\n\n폴더에 저장하면:\n  ✅ Git 커밋 시 함께 배포됨\n  ✅ 다른 사용자에게도 표시됨\n  ✅ 브라우저 캐시 삭제와 무관하게 유지\n\n[등록할 폴더]\n  images/_ai_recommended/\n\n취소하면 다운로드 폴더에 저장됩니다.');
-          if (setupNow) {
-            const handle = await fsSelectFolder();
-            if (handle) result = await fsSaveImage(pngBlob, targetName);
+          alert(
+            '📁 저장 폴더가 등록되지 않았습니다.\n\n' +
+            '지금 폴더 선택 창을 엽니다.\n' +
+            '아래 경로의 _ai_recommended 폴더를 선택해주세요:\n\n' +
+            '  D:\\AI\\lexia.safeg\\위험성평가 Lexia 표준 템플릿 코드 정규화\\\n' +
+            '    SAFEG-lexia\\rag_data\\image_library_v2\\images\\_ai_recommended\n\n' +
+            '한 번 등록하면 다음부터는 자동으로 그 폴더에 저장됩니다.\n' +
+            '(취소 시 Downloads 폴더로 떨어집니다)'
+          );
+          const handle = await fsSelectFolder();
+          if (handle) {
+            result = await fsSaveImage(pngBlob, targetName);
+            await refreshFsStatus();
           }
         }
-        
+
         if (result.ok) {
           savedToFolder = true;
           savedPath = result.path;
@@ -1552,6 +1696,8 @@ function openLB(id) {
       if (aiTab) switchTab(aiTab, 'ai');
     }, 0);
   }
+  // 폴더 상태 비동기 갱신 (라이트박스 열 때마다 — 권한 만료 자동 감지)
+  refreshFsStatus();
 }
 
 document.getElementById('lbClose').onclick = () => document.getElementById('lb').classList.remove('show');
@@ -1608,6 +1754,8 @@ document.getElementById('bulkDelete').onclick = () => {
 window.addEventListener('DOMContentLoaded', () => {
   buildChips();
   apply();
+  // 페이지 진입 시 폴더 상태 1회 확인 (배너에 즉시 반영)
+  refreshFsStatus();
 });
 </script>
 
